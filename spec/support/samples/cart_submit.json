@@ -48,13 +48,7 @@
       "OrderMessage": "",
       "OrderReferenceNumber": "R11221321323",
       "Payment": {
-        "IsOnAccountPayment": "true",
-        "RedeemablePayments": [],
-        "CashPayment": {
-          "Amount": 68,
-          "ChequeNumber": 10001,
-          "ChequeDate": "/Date(1383312895000-0500)/"
-        }
+        "WireTransferPayment": { 'Amount': 68 }
       },
       "ShipTos": [
       {

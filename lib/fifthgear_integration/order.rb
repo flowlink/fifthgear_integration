@@ -99,12 +99,18 @@ module FifthGearIntegration
     end
 
     # NOTE need to map the country code and possibly state code as well
-    # NOTE what about shipping method? wombat doesn't have that on default order
+    #
+    # Some shipping codes for web imports:
+    #
+    #   Next Day > FDXOS
+    #   2nd Day Delivery > FDX2D
+    #   Ground > FDXGND
+    #
     def shipping_info
       [
         {
           # "CarrierAccountNumber" => "",
-          # "ExternalShipCode" => "FXG",
+          # "ExternalShipCode" => "",
           "Recipient" => {
             "FirstName" => shipping_address_payload[:firstname],
             "LastName" => shipping_address_payload[:lastname],
@@ -124,22 +130,15 @@ module FifthGearIntegration
             "PostalCode" => shipping_address_payload[:zipcode],
             "StateOrProvinceCode" => 23
           },
-          # "ShippingMethodCode" => "XC"
+          "ShippingMethodCode" => order_payload[:shipping_method] || "FDXOS"
         }
       ]
     end
 
-    # NOTE need to figure how a Prepaid format looks like
+    # Assume payments are processed on storefront or somewhere else
     def payment
-      {
-        "IsOnAccountPayment" => "false",
-        "RedeemablePayments" => [],
-        "CashPayment" => {
-          "Amount" => 68,
-          "ChequeNumber" => 10001,
-          "ChequeDate" => "/Date(1383312895000-0500)/"
-        }
-      }
+      amount = order_payload[:payments].map { |p| p[:amount] }.reduce(:+) || 0
+      { "WireTransferPayment" => { 'Amount' => amount } }
     end
   end
 end
