@@ -15,7 +15,7 @@ describe FifthGearEndpoint do
   end
 
   it "places an order" do
-    order[:id] = "R445638894398579879"
+    order[:id] = "R4359ERGRG435325"
     payload = { order: order, parameters: config }
 
     VCR.use_cassette("orders/#{order[:id]}") do

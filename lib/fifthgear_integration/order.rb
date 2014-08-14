@@ -5,7 +5,7 @@ module FifthGearIntegration
     def initialize(config, payload = {})
       super config, payload
 
-      @order_payload = payload[:order]
+      @order_payload = payload[:order] || {}
       @billing_address_payload = order_payload[:billing_address] || {}
       @shipping_address_payload = order_payload[:shipping_address] || {}
     end
@@ -24,14 +24,13 @@ module FifthGearIntegration
     end
 
     # NOTE need to map the country code and possibly state code as well
-    # NOTE need to convert order[:placed_on] properly to .Net DataContractJsonSerializer format
     def options
       {
         "Request" => {
           "BillingAddress" => billing_address,
           "Charges" => [
             {
-              "Amount" => order_payload[:totals][:shipping],
+              "Amount" => order_payload[:totals][:shipping] || 0,
               "ChargeCode" => "Shipping Charges"
             }
           ],
@@ -41,7 +40,7 @@ module FifthGearIntegration
           "Discounts" => [],
           "Items" => items,
           "OrderType" => "internet",
-          "OrderDate" => "/Date(1383312895000-0500)/",
+          "OrderDate" => Helper.dotnet_date_contract(order_payload[:placed_on]),
           "OrderMessage" => "",
           "OrderReferenceNumber" => order_payload[:id],
           "Payment" => payment,
@@ -99,6 +98,8 @@ module FifthGearIntegration
     end
 
     # NOTE need to map the country code and possibly state code as well
+    # NOTE Validate ShippingMethodCode and raise if it's not in the valid list
+    # (build that valid list in a constant?)
     #
     # Some shipping codes for web imports:
     #
@@ -136,6 +137,7 @@ module FifthGearIntegration
     end
 
     # Assume payments are processed on storefront or somewhere else
+    # therefore not cash / credit card payments here
     def payment
       amount = order_payload[:payments].map { |p| p[:amount] }.reduce(:+) || 0
       { "WireTransferPayment" => { 'Amount' => amount } }
