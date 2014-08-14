@@ -10,7 +10,9 @@ module FifthGearIntegration
       end
 
       FifthGear.basic_auth config[:fifthgear_username], config[:fifthgear_password]
-      FifthGear.company_id = config[:fifthgear_company_id]
+      FifthGear.company_id config[:fifthgear_company_id]
     end
   end
 end
+
+require 'fifthgear_integration/order'

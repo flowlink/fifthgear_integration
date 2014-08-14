@@ -48,28 +48,13 @@
       "OrderMessage": "",
       "OrderReferenceNumber": "R11221321323",
       "Payment": {
-        "IsOnAccountPayment": "false",
+        "IsOnAccountPayment": "true",
         "RedeemablePayments": [],
         "CashPayment": {
           "Amount": 68,
           "ChequeNumber": 10001,
           "ChequeDate": "/Date(1383312895000-0500)/"
-        },
-        "CreditCardPayments": [
-        {
-          "HolderName": "Bob Van Der Konkle",
-          "AddressZip": "46268",
-          "AuthorizationAmount": 10000,
-          "CVV": 123,
-          "ExpirationMonth": 4,
-          "ExpirationYear": 2014,
-          "IsAuthorizationAmountSpecified": true,
-          "AuthorizationCode": null,
-          "AuthorizationProcessor": "Authorize.net",
-          "OrderReferenceNumber": null,
-          "TransactionReferenceNumber": null
         }
-        ]
       },
       "ShipTos": [
       {

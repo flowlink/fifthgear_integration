@@ -1,25 +1,37 @@
 module FifthGearIntegration
-  class Order
+  class Order < Base
     attr_reader :order_payload, :billing_address_payload, :shipping_address_payload
 
     def initialize(config, payload = {})
       super config, payload
+
       @order_payload = payload[:order]
-      @billing_address_payload = order[:billing_address] || {}
-      @shipping_address_payload = order[:shipping_address] || {}
+      @billing_address_payload = order_payload[:billing_address] || {}
+      @shipping_address_payload = order_payload[:shipping_address] || {}
     end
 
     def post!
-      FifthGear.cart_submit options
+      response = FifthGear.cart_submit options
+
+      if response["Errors"].blank? && response["Response"]
+        {
+          receipt: response["Response"]["OrderReceipt"],
+          status: response["Response"]["OrderStatus"]
+        }
+      else
+        raise response["Errors"].inspect
+      end
     end
 
+    # NOTE need to map the country code and possibly state code as well
+    # NOTE need to convert order[:placed_on] properly to .Net DataContractJsonSerializer format
     def options
       {
         "Request" => {
-          "BillingAddress" => billing_address
+          "BillingAddress" => billing_address,
           "Charges" => [
             {
-              "Amount" => order[:totals][:shipping],
+              "Amount" => order_payload[:totals][:shipping],
               "ChargeCode" => "Shipping Charges"
             }
           ],
@@ -27,19 +39,20 @@ module FifthGearIntegration
           "CurrencyCode" => 154,
           "Customer" => customer,
           "Discounts" => [],
-          "Items" => items
+          "Items" => items,
           "OrderType" => "internet",
           "OrderDate" => "/Date(1383312895000-0500)/",
           "OrderMessage" => "",
-          "OrderReferenceNumber" => order[:id],
+          "OrderReferenceNumber" => order_payload[:id],
           "Payment" => payment,
-          "ShipTos" => shipping_info
+          "ShipTos" => shipping_info,
           "Source" => "",
           "SourceCode" => ""
         }
       }
     end
 
+    # NOTE need to map the country code and possibly state code as well
     def billing_address
       {
         "Address1" => billing_address_payload[:address1],
@@ -63,12 +76,14 @@ module FifthGearIntegration
         "LastName" => billing_address_payload[:lastname],
         "MiddleName" => "",
         "RefCustomerNumber" => "",
-        "Email" => order[:email]
-      },
+        "Email" => order_payload[:email]
+      }
     end
 
+    # NOTE what is LineNumber?
+    # NOTE Shipto > Ships to the first index of the shiptos array
     def items
-      order[:line_items].map do |item|
+      order_payload[:line_items].map do |item|
         {
           "ShipTo" => 1,
           "Amount" => item[:price],
@@ -83,14 +98,16 @@ module FifthGearIntegration
       end
     end
 
+    # NOTE need to map the country code and possibly state code as well
+    # NOTE what about shipping method? wombat doesn't have that on default order
     def shipping_info
       [
         {
-          "CarrierAccountNumber" => "",
-          "ExternalShipCode" => "FXG",
+          # "CarrierAccountNumber" => "",
+          # "ExternalShipCode" => "FXG",
           "Recipient" => {
-            "FirstName" => "Bob",
-            "LastName" => "Van Der Konkle",
+            "FirstName" => shipping_address_payload[:firstname],
+            "LastName" => shipping_address_payload[:lastname],
             "MiddleName" => ""
           },
           "ShipLineID" => 1,
@@ -107,11 +124,12 @@ module FifthGearIntegration
             "PostalCode" => shipping_address_payload[:zipcode],
             "StateOrProvinceCode" => 23
           },
-          "ShippingMethodCode" => "XC"
+          # "ShippingMethodCode" => "XC"
         }
       ]
     end
 
+    # NOTE need to figure how a Prepaid format looks like
     def payment
       {
         "IsOnAccountPayment" => "false",
@@ -120,22 +138,7 @@ module FifthGearIntegration
           "Amount" => 68,
           "ChequeNumber" => 10001,
           "ChequeDate" => "/Date(1383312895000-0500)/"
-        },
-        "CreditCardPayments" => [
-          {
-            "HolderName" => "Bob Van Der Konkle",
-            "AddressZip" => "46268",
-            "AuthorizationAmount" => 10000,
-            "CVV" => 123,
-            "ExpirationMonth" => 4,
-            "ExpirationYear" => 2014,
-            "IsAuthorizationAmountSpecified" => true,
-            "AuthorizationCode" => nil,
-            "AuthorizationProcessor" => "Authorize.net",
-            "OrderReferenceNumber" => nil,
-            "TransactionReferenceNumber" => nil
-          }
-        ]
+        }
       }
     end
   end

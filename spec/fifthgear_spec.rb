@@ -14,7 +14,7 @@ describe FifthGear do
   end
 
   it "fetches inventory" do
-    VCR.use_cassette("inventory/bulk") do
+    VCR.use_cassette("inventory/bulks") do
       inventories = subject.inventory_bulk_lookup
 
       expect(inventories.count).to be >= 1
@@ -23,7 +23,7 @@ describe FifthGear do
   end
 
   it "places an order" do
-    number = cart_order["Request"]["OrderReferenceNumber"] = "R11221321323"
+    number = cart_order["Request"]["OrderReferenceNumber"] = "R3243243498"
 
     VCR.use_cassette("orders/#{number}") do
       response = subject.cart_submit cart_order

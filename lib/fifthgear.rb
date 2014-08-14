@@ -22,14 +22,54 @@ class FifthGear
 
       if response.code == 200
         response["Response"]["ItemInventories"]
-      else
       end
     end
 
+    # Place an Order
+    #
+    # Returns a 200 both when order is created or when some validation error
+    # happened.
+    #
+    # Successful response example:
+    #
+    #   {
+    #     "OperationRequest": {
+    #       "Arguments": null,
+    #       "Errors": null,
+    #       "HTTPHeaders": null,
+    #       "RequestId": null,
+    #       "RequestProcessingTime": 722
+    #     },
+    #     "Response": {
+    #       "OrderReceipt": "64a20548-07ca-4c16-8e61-cf70d3b9ac04",
+    #       "OrderStatus":"NotYetShipped"
+    #     }
+    #   }
+    #
+    # Error response example:
+    #
+    #   {
+    #     "OperationRequest": {
+    #       "Arguments": null,
+    #       "Errors": [
+    #         {
+    #           "Code": "10117",
+    #           "Message": "Duplicate order : orderNumber: , orderDate: 11\/01\/2013 9:34:55 AM, lastName: Van Der Konkle, middleName: , firstName: Bob"
+    #         }
+    #       ],
+    #       "HTTPHeaders": null,
+    #       "RequestId": null,
+    #       "RequestProcessingTime": 307
+    #     },
+    #     "Response": null
+    #   }
+    #
     def cart_submit(options = {})
       service "CartSubmit", options
     end
 
+    # Return a collection of orders with their statuses
+    #
     # Possible options
     #
     #   "Request": {
