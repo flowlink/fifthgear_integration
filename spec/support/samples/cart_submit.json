@@ -1,0 +1,103 @@
+{
+  "Request": {
+    "BillingAddress": {
+      "Address1": "9100 Purdue Road",
+      "Address2": "Suite 400",
+      "City": "Indianapolis",
+      "CountryCode": 231,
+      "Email": null,
+      "Fax": "",
+      "IsGiftAddress": false,
+      "Organization": null,
+      "PhoneNumber": null,
+      "PostalCode": "46268",
+      "StateOrProvinceCode": 23
+    },
+    "Charges": [
+    {
+      "Amount": 13,
+      "ChargeCode": "Shipping Charges"
+    }
+    ],
+      "CountryCode": 231,
+      "CurrencyCode": 154,
+      "Customer": {
+        "CustomerNumber": "",
+        "FirstName": "Bob",
+        "LastName": "Van Der Konkle",
+        "MiddleName": "",
+        "RefCustomerNumber": "",
+        "Email": "van@xyz.zyx"
+      },
+      "Discounts": [],
+      "Items": [
+      {
+        "ShipTo": 1,
+        "Amount": 55,
+        "ItemNumber": "BDVQ-1.2101G",
+        "Quantity": 1,
+        "Discounts": [],
+        "ParentLineNumber": 0,
+        "GroupName": null,
+        "LineNumber": 1,
+        "Comments": null
+      }
+    ],
+      "OrderType": "internet",
+      "OrderDate": "/Date(1383312895000-0500)/",
+      "OrderMessage": "",
+      "OrderReferenceNumber": "R11221321323",
+      "Payment": {
+        "IsOnAccountPayment": "false",
+        "RedeemablePayments": [],
+        "CashPayment": {
+          "Amount": 68,
+          "ChequeNumber": 10001,
+          "ChequeDate": "/Date(1383312895000-0500)/"
+        },
+        "CreditCardPayments": [
+        {
+          "HolderName": "Bob Van Der Konkle",
+          "AddressZip": "46268",
+          "AuthorizationAmount": 10000,
+          "CVV": 123,
+          "ExpirationMonth": 4,
+          "ExpirationYear": 2014,
+          "IsAuthorizationAmountSpecified": true,
+          "AuthorizationCode": null,
+          "AuthorizationProcessor": "Authorize.net",
+          "OrderReferenceNumber": null,
+          "TransactionReferenceNumber": null
+        }
+        ]
+      },
+      "ShipTos": [
+      {
+        "CarrierAccountNumber": "",
+        "ExternalShipCode": "FXG",
+        "Recipient": {
+          "FirstName": "Bob",
+          "LastName": "Van Der Konkle",
+          "MiddleName": ""
+        },
+        "ShipLineID": 1,
+        "ShippingAddress": {
+          "Address1": "1234 Pine View Dr",
+          "Address2": "",
+          "City": "Carmel",
+          "CountryCode": 231,
+          "Email": null,
+          "Fax": "",
+          "IsGiftAddress": false,
+          "Organization": null,
+          "PhoneNumber": null,
+          "PostalCode": "46032",
+          "StateOrProvinceCode": 23
+        },
+        "ShippingMethodCode": "XC"
+      }
+    ],
+      "Source": "",
+      "SourceCode": ""
+  }
+}
