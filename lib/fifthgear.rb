@@ -131,7 +131,7 @@ class FifthGear
       response = service "OrderStatusBulkLookup", options
 
       if response.code == 200 && hash = response["Response"]
-        { orders: hash["Statuses"], count: hash["TotalOrderResults"] }
+        hash["Statuses"]
       end
     end
 

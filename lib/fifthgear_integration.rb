@@ -17,3 +17,4 @@ end
 
 require 'fifthgear_integration/order'
 require 'fifthgear_integration/inventory'
+require 'fifthgear_integration/shipment'

@@ -26,4 +26,9 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
 
     result 200, line
   end
+
+  post "/get_shipments" do
+    shipments = FifthGearIntegration::Shipment.new(@config).get!
+    result 200
+  end
 end

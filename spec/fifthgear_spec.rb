@@ -41,7 +41,7 @@ describe FifthGear do
 
     VCR.use_cassette("orders/bulk") do
       response = subject.order_status_bulk_lookup options
-      expect(response[:orders].count).to be >= 0
+      expect(response.count).to be >= 0
     end
   end
 

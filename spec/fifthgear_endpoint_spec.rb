@@ -43,4 +43,13 @@ describe FifthGearEndpoint do
       expect(json_response[:inventories].count).to eq 1
     end
   end
+
+  it "fetches order updates" do
+    payload = { parameters: config }
+
+    VCR.use_cassette("orders/bulk_lookup") do
+      post "/get_shipments", payload.to_json, auth
+      expect(last_response.status).to eq 200
+    end
+  end
 end
