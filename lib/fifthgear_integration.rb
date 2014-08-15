@@ -5,7 +5,7 @@ require 'fifthgear'
 module FifthGearIntegration
   class Base
     def initialize(config, payload = {})
-      if config[:fifthgear_production]
+      if config[:fifthgear_production].to_s == "true"
         FifthGear.base_uri "https://commerceservices.infifthgear.com/v2.0/CommerceServices.svc/Rest"
       else
         FifthGear.base_uri "https://commerceservicestest.infifthgear.com/v2.0/CommerceServices.svc/Rest"
