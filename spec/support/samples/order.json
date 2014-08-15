@@ -4,7 +4,7 @@
   "channel": "spree",
   "email": "spree@example.com",
   "currency": "USD",
-  "placed_on": "2014-02-03T17:29:15.219Z",
+  "placed_on": "2014-08-03T17:29:15.219Z",
   "totals": {
     "item": 200,
     "adjustment": 20,

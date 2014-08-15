@@ -40,7 +40,7 @@ module FifthGearIntegration
           "Discounts" => [],
           "Items" => items,
           "OrderType" => "internet",
-          "OrderDate" => Helper.dotnet_date_contract(order_payload[:placed_on]),
+          "OrderDate" => FifthGear::Helper.dotnet_date_contract(order_payload[:placed_on]),
           "OrderMessage" => "",
           "OrderReferenceNumber" => order_payload[:id],
           "Payment" => payment,

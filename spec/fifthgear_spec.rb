@@ -14,7 +14,7 @@ describe FifthGear do
   end
 
   it "fetches inventory" do
-    VCR.use_cassette("inventory/bulks") do
+    VCR.use_cassette("inventory/bulk") do
       inventories = subject.inventory_bulk_lookup
 
       expect(inventories.count).to be >= 1
@@ -31,8 +31,25 @@ describe FifthGear do
   end
 
   it "looks up order statuses" do
+    options = {
+      "Request" => nil,
+      "FromDate" => FifthGear::Helper.dotnet_date_contract("2000-01-03T17:29:15.219Z"),
+      "ToDate" => FifthGear::Helper.dotnet_date_contract("2014-08-14T17:29:15.219Z"),
+      "StartRange" => 1,
+      "EndRange" => 25
+    }
+
     VCR.use_cassette("orders/bulk") do
-      response = subject.order_status_bulk_lookup
+      response = subject.order_status_bulk_lookup options
+      expect(response[:orders].count).to be >= 0
+    end
+  end
+
+  describe FifthGear::Helper do
+    it "converts date to dotnet format" do
+      date = "2014-02-03T17:29:15.219Z"
+      dotnet = described_class.dotnet_date_contract date
+      expect(dotnet).to match "Date"
     end
   end
 end

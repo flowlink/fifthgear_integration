@@ -70,17 +70,36 @@ class FifthGear
 
     # Return a collection of orders with their statuses
     #
-    # Possible options
+    # Options:
     #
-    #   "Request": {
-    #     "FromDate" : /Date(1387721954000-0500)/, # .NET Datetime String
-    #     "ToDate" : /Date(1388067628000-0500)/, 
-    #     "StartRange" : 1,
-    #     "EndRange" : 10
+    #   "Request": null,
+    #   "FromDate" : /Date(1387721954000-0500)/,
+    #   "ToDate" : /Date(1388067628000-0500)/,
+    #   "StartRange" : 1,
+    #   "EndRange" : 10
+    #
+    # Response format:
+    #
+    #   {
+    #     "OperationRequest": {
+    #       "Arguments": null,
+    #       "Errors": null,
+    #       "HTTPHeaders": null,
+    #       "RequestId": null,
+    #       "RequestProcessingTime": 394
+    #     },
+    #     "Response": {
+    #       "Statuses": [],
+    #       "TotalOrderResults": 0
+    #     }
     #   }
     #
     def order_status_bulk_lookup(options = {})
-      service "OrderStatusBulkLookup", options
+      response = service "OrderStatusBulkLookup", options
+
+      if response.code == 200 && hash = response["Response"]
+        { orders: hash["Statuses"], count: hash["TotalOrderResults"] }
+      end
     end
 
     def service(name, options = {})
@@ -89,6 +108,23 @@ class FifthGear
         headers: { 'Content-Type' => 'text/json' },
         body: { 'CompanyId' => @@company_id }.merge(options).to_json
       )
+    end
+  end
+
+  class Helper
+    class << self
+      # All dates need to be passed in the .NET serialized date format
+      #
+      # See http://stackoverflow.com/questions/17315394/how-to-format-a-php-date-in-net-datacontractjsonserializer-format
+      # for reference where logic was taken
+      #
+      # It basically consists of a string with /Date(UnixTimestamp+UTCOffset)/
+      #
+      # Here we consider all dates are in UTC hence the +0000
+      def dotnet_date_contract(date_string)
+        time = Time.parse date_string
+        "/Date(#{time.to_i * 1000}+0000)/"
+      end
     end
   end
 end
