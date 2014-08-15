@@ -14,10 +14,8 @@ module FifthGearIntegration
       else
         # Range is to avoid getting +3000 items back for the time being
         options = {
-          Request: {
-            startRange: 1,
-            endRange: 3
-          }
+          startRange: 1,
+          endRange: 100
         }
 
         FifthGear.item_inventory_bulk_lookup options
