@@ -78,7 +78,7 @@ module FifthGearIntegration
     end
 
     # NOTE what is LineNumber?
-    # NOTE Shipto > Ships to the first index of the shiptos array
+    # NOTE Shipto > the first index of the shiptos array
     def items
       order_payload[:line_items].map do |item|
         {
@@ -95,15 +95,6 @@ module FifthGearIntegration
       end
     end
 
-    # NOTE Validate ShippingMethodCode and raise if it's not in the valid list
-    # (build that valid list in a constant?)
-    #
-    # Some shipping codes for web imports:
-    #
-    #   Next Day > FDXOS
-    #   2nd Day Delivery > FDX2D
-    #   Ground > FDXGND
-    #
     def shipping_info
       [
         {
@@ -128,7 +119,7 @@ module FifthGearIntegration
             "PostalCode" => shipping_address_payload[:zipcode],
             "StateOrProvinceCode" => state_code(shipping_address_payload[:state])
           },
-          "ShippingMethodCode" => order_payload[:shipping_method] || "FDXOS"
+          "ShippingMethodCode" => ship_code(order_payload[:shipping_method]) || "FDXOS"
         }
       ]
     end
@@ -157,12 +148,26 @@ module FifthGearIntegration
       end
     end
 
+    def ship_code(shipping_method)
+      if shipping_method.present? && !ship_codes.values.include?(shipping_method)
+        raise InvalidShipCodeError, "Invalid Shipping Code provided. Please provide a valid ship code"
+      else
+        shipping_method || "FDXOS" # Next Day
+      end
+    end
+
+    # NOTE put these in a class variable, at least we would read from file
+    # system at least once on app boot
     def country_codes
       @country_codes ||= JSON.parse(IO.read(File.join(__dir__, "..", "country_codes.json")))
     end
 
     def state_codes
       @state_codes ||= JSON.parse(IO.read(File.join(__dir__, "..", "state_codes.json")))
+    end
+
+    def ship_codes
+      @ship_codes ||= JSON.parse(IO.read(File.join(__dir__, "..", "fifthgear", "ship_codes.json")))
     end
   end
 end

@@ -1,0 +1,20 @@
+{
+  "Next Day": "FDXOS",
+  "2nd Day Delivery": "FDX2D",
+  "Express Saver": "FDXEXSAV",
+  "Smartpost": "FDXSP",
+  "Ground": "FDXGND",
+  "Ground Commercial": "FDXGCOM",
+  "Next Day - Signature Required": "SIGFDXOS",
+  "2nd Day Delivery - Signature Required": "SIGFDX2D",
+  "Express Saver - Signature Required": "SIGFDXEXSAV",
+  "Smartpost - Signature Required": "SIGFDXSP",
+  "Ground - Signature Required": "SIGFDXGND",
+  "Ground Commercial - Signature Required": "SIGFDXGCOM",
+  "US Auto Parts Next Day": "USAPFOS",
+  "US Auto Parts 2nd Day Delivery": "USAPF2D",
+  "US Auto Parts Express Saver": "USAPFEXSAV",
+  "US Auto Parts Smartpost": "USAPFSP",
+  "US Auto Parts Ground": "USAPFGND",
+  "US Auto Parts Ground Commercial": "USAPFGCOM"
+}

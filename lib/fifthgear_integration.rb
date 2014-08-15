@@ -13,6 +13,8 @@ module FifthGearIntegration
       FifthGear.company_id config[:fifthgear_company_id]
     end
   end
+
+  class InvalidShipCodeError < StandardError; end
 end
 
 require 'fifthgear_integration/order'
