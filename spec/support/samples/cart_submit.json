@@ -48,7 +48,7 @@
       "OrderMessage": "",
       "OrderReferenceNumber": "R11221321323",
       "Payment": {
-        "WireTransferPayment": { 'Amount': 68 }
+        "WireTransferPayment": { "Amount": 68 }
       },
       "ShipTos": [
       {

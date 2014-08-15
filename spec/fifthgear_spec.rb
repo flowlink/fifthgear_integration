@@ -18,7 +18,7 @@ describe FifthGear do
       inventories = subject.item_inventory_bulk_lookup
 
       expect(inventories.count).to be >= 1
-      expect(inventories.first["ItemNumber"]).to be
+      expect(inventories.first[:sku]).to be
     end
   end
 
