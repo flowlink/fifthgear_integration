@@ -6,7 +6,34 @@ class FifthGear
       @@company_id = id
     end
 
-    # Returns an array of item inventories. e.g.
+    # Return inventory for a single product
+    # 
+    # Options:
+    #
+    #   "Request": "SKU123" // SKU of the item you're looking for
+    #
+    def item_inventory_lookup(options = {})
+      response = service "ItemInventoryLookup", options
+
+      if response.code == 200 && hash = response["Response"]
+        {
+          sku: hash["ItemNumber"],
+          quantity: hash["AvailableToPurchaseQuantity"],
+          backorder_available_date: hash["BackOrderAvailableDate"]
+        }
+      end
+    end
+
+    # Returns a collection of inventories. e.g.
+    #
+    # Options:
+    #
+    #   "Request": {
+    #     "startRange" : 1, // Starting index
+    #     "endRange" : 3 // Ending Index.
+    #   }
+    #
+    # Example response:
     #
     #   [
     #     { "AvailableToPurchaseQuantity"=>0,
@@ -17,11 +44,17 @@ class FifthGear
     #     ...
     #   ]
     #
-    def inventory_bulk_lookup(options = {})
+    def item_inventory_bulk_lookup(options = {})
       response = service "ItemInventoryBulkLookup", options
 
-      if response.code == 200
-        response["Response"]["ItemInventories"]
+      if response.code == 200 && array = response["Response"]["ItemInventories"]
+        array.map do |item|
+          {
+            sku: item["ItemNumber"],
+            quantity: item["AvailableToPurchaseQuantity"],
+            backorder_allocation_quantity: item["BackorderAllocationQuantity"]
+          }
+        end
       end
     end
 

@@ -16,3 +16,4 @@ module FifthGearIntegration
 end
 
 require 'fifthgear_integration/order'
+require 'fifthgear_integration/inventory'

@@ -15,7 +15,7 @@ describe FifthGear do
 
   it "fetches inventory" do
     VCR.use_cassette("inventory/bulk") do
-      inventories = subject.inventory_bulk_lookup
+      inventories = subject.item_inventory_bulk_lookup
 
       expect(inventories.count).to be >= 1
       expect(inventories.first["ItemNumber"]).to be
