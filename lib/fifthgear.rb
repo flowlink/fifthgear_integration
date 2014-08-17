@@ -153,7 +153,7 @@ class FifthGear
       #
       # Here we consider all dates are in UTC hence the +0000
       def dotnet_date_contract(date_string)
-        time = Time.parse date_string
+        time = date_string.is_a?(Time) ? date_string : Time.parse(date_string)
         "/Date(#{time.to_i * 1000}+0000)/"
       end
     end
