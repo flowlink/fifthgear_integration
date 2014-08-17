@@ -1,6 +1,10 @@
 module FifthGearIntegration
   class Order < Base
     attr_reader :order_payload, :billing_address_payload, :shipping_address_payload
+    
+    @@country_codes = JSON.parse IO.read(File.join(__dir__, "..", "country_codes.json"))
+    @@state_codes = JSON.parse IO.read(File.join(__dir__, "..", "state_codes.json"))
+    @@ship_codes = JSON.parse IO.read(File.join(__dir__, "..", "fifthgear", "ship_codes.json"))
 
     def initialize(config, payload = {})
       super config, payload
@@ -133,15 +137,15 @@ module FifthGearIntegration
 
     # Default to USA code if no country code is found
     def country_code(country)
-      if country_codes[country]
-        country_codes[country]["code"]
+      if @@country_codes[country]
+        @@country_codes[country]["code"]
       else
         231
       end
     end
 
     def state_code(state)
-      if match = state_codes.values.find { |h| h["name"] == state }
+      if match = @@state_codes.values.find { |h| h["name"] == state }
         match["code"]
       else
         0 # Unknown
@@ -149,25 +153,11 @@ module FifthGearIntegration
     end
 
     def ship_code(shipping_method)
-      if shipping_method.present? && !ship_codes.values.include?(shipping_method)
+      if shipping_method.present? && !@@ship_codes.values.include?(shipping_method)
         raise InvalidShipCodeError, "Invalid Shipping Code provided. Please provide a valid ship code"
       else
         shipping_method || "FDXOS" # Next Day
       end
-    end
-
-    # NOTE put these in a class variable, at least we would read from file
-    # system at least once on app boot
-    def country_codes
-      @country_codes ||= JSON.parse(IO.read(File.join(__dir__, "..", "country_codes.json")))
-    end
-
-    def state_codes
-      @state_codes ||= JSON.parse(IO.read(File.join(__dir__, "..", "state_codes.json")))
-    end
-
-    def ship_codes
-      @ship_codes ||= JSON.parse(IO.read(File.join(__dir__, "..", "fifthgear", "ship_codes.json")))
     end
   end
 end
