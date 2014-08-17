@@ -4,7 +4,11 @@ require 'fifthgear'
 
 module FifthGearIntegration
   class Base
+    attr_reader :config
+
     def initialize(config, payload = {})
+      @config = config
+
       if config[:fifthgear_production].to_s == "true"
         FifthGear.base_uri "https://commerceservices.infifthgear.com/v2.0/CommerceServices.svc/Rest"
       else

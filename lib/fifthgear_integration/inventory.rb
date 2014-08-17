@@ -12,11 +12,14 @@ module FifthGearIntegration
         item = FifthGear.item_inventory_lookup({ Request: inventory[:sku] })
         [item]
       else
-        # Range is to avoid getting +3000 items back for the time being
-        options = {
-          startRange: 1,
-          endRange: 100
-        }
+        options = {}
+
+        if config[:fifthgear_startrange].present? && config[:fifthgear_endrange].present?
+          options = {
+            startRange: config[:fifthgear_startrange].to_i,
+            endRange: config[:fifthgear_endrange].to_i
+          }
+        end
 
         FifthGear.item_inventory_bulk_lookup options
       end
