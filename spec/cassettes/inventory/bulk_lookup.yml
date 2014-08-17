@@ -1,0 +1,36 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://FIFTHGEAR_USERNAME:FIFTHGEAR_PASSWORD@commerceservicestest.infifthgear.com/v2.0/CommerceServices.svc/Rest/ItemInventoryBulkLookup
+    body:
+      encoding: UTF-8
+      string: '{"CompanyId":"FIFTHGEAR_COMPANYID","startRange":1,"endRange":5}'
+    headers:
+      Content-Type:
+      - text/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Length:
+      - '873'
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Sun, 17 Aug 2014 23:12:42 GMT
+    body:
+      encoding: UTF-8
+      string: '{"OperationRequest":{"Arguments":null,"Errors":null,"HTTPHeaders":null,"RequestId":null,"RequestProcessingTime":412},"Response":{"ItemInventories":[{"AvailableToPurchaseQuantity":0,"BackorderAllocationQuantity":0,"ExpectedDate":null,"ExternalItemNumber":null,"ItemNumber":"BDVQ-1.2101G"},{"AvailableToPurchaseQuantity":0,"BackorderAllocationQuantity":0,"ExpectedDate":null,"ExternalItemNumber":null,"ItemNumber":"BDVQ-1.2101R"},{"AvailableToPurchaseQuantity":0,"BackorderAllocationQuantity":0,"ExpectedDate":null,"ExternalItemNumber":null,"ItemNumber":"BDVQ-1.2102G"},{"AvailableToPurchaseQuantity":0,"BackorderAllocationQuantity":0,"ExpectedDate":null,"ExternalItemNumber":null,"ItemNumber":"BDVQ-1.2102R"},{"AvailableToPurchaseQuantity":0,"BackorderAllocationQuantity":0,"ExpectedDate":null,"ExternalItemNumber":null,"ItemNumber":"BDVQ-1.5101G"}],"TotalSKUResults":3085}}'
+    http_version: 
+  recorded_at: Sun, 17 Aug 2014 23:12:43 GMT
+recorded_with: VCR 2.9.2

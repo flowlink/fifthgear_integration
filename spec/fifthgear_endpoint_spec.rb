@@ -25,7 +25,9 @@ describe FifthGearEndpoint do
   end
 
   it "fetches inventory" do
-    payload = { parameters: config }
+    payload = {
+      parameters: config.merge(fifthgear_startrange: 1, fifthgear_endrange: 5)
+    }
 
     VCR.use_cassette("inventory/bulk_lookup") do
       post "/get_inventory", payload.to_json, auth
