@@ -34,6 +34,14 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
 
   post "/get_shipments" do
     shipments = FifthGearIntegration::Shipment.new(@config).get!
-    result 200
+    shipments.each { |s| add_object "shipment", s }
+
+    line = if (count = shipments.count) > 0
+             "Updating #{count} #{"shipment".pluralize count} record from FifthGear"
+           else
+             "No shipment update found in FifthGear"
+           end
+    
+    result 200, line
   end
 end
