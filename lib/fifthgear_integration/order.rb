@@ -103,7 +103,7 @@ module FifthGearIntegration
       [
         {
           "CarrierAccountNumber" => order_payload[:carrier_account_number] || "",
-          "ExternalShipCode" => order_payload[:external_ship_code] || "",
+          "ExternalShipCode" => ship_code(order_payload[:external_ship_code]),
           "Recipient" => {
             "FirstName" => shipping_address_payload[:firstname],
             "LastName" => shipping_address_payload[:lastname],
@@ -123,7 +123,7 @@ module FifthGearIntegration
             "PostalCode" => shipping_address_payload[:zipcode],
             "StateOrProvinceCode" => state_code(shipping_address_payload[:state])
           },
-          "ShippingMethodCode" => ship_code(order_payload[:shipping_method]) || "FDXOS"
+          "ShippingMethodCode" => ""
         }
       ]
     end
