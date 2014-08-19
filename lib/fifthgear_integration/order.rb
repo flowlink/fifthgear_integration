@@ -46,6 +46,7 @@ module FifthGearIntegration
           "OrderDate" => FifthGear::Helper.dotnet_date_contract(order_payload[:placed_on]),
           "OrderMessage" => "",
           "OrderReferenceNumber" => order_payload[:id],
+          "IsWholesaleDirect" => order_payload[:is_whole_sale_direct] || false,
           "Payment" => payment,
           "ShipTos" => shipping_info,
           "Source" => "",
