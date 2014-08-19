@@ -2,9 +2,9 @@ module FifthGearIntegration
   class Order < Base
     attr_reader :order_payload, :billing_address_payload, :shipping_address_payload
     
-    @@country_codes = JSON.parse IO.read(File.join(__dir__, "..", "country_codes.json"))
-    @@state_codes = JSON.parse IO.read(File.join(__dir__, "..", "state_codes.json"))
-    @@ship_codes = JSON.parse IO.read(File.join(__dir__, "..", "fifthgear", "ship_codes.json"))
+    @@country_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/country_codes.json"))
+    @@state_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/state_codes.json"))
+    @@ship_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/ship_codes.json"))
 
     def initialize(config, payload = {})
       super config, payload
