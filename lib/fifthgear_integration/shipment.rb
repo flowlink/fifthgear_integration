@@ -5,33 +5,63 @@ module FifthGearIntegration
   class Shipment < Base
     def get!
       options = {
-        "Request" => nil,
         "FromDate" => from_date,
         "ToDate" => to_date
       }
 
       if config[:fifthgear_startrange].present? && config[:fifthgear_endrange].present?
         options.merge!({
-          startRange: config[:fifthgear_startrange].to_i,
-          endRange: config[:fifthgear_endrange].to_i
+          "StartRange" => config[:fifthgear_startrange].to_i,
+          "EndRange" => config[:fifthgear_endrange].to_i
         })
+      else
+        options.merge!({ "StartRange" => 1, "EndRange" => 100 })
       end
 
       build_shipments FifthGear.order_status_bulk_lookup(options)
     end
 
+    # Example object returned by Fifth Gear
+    #
+    #   {
+    #     "DateShipped"=>nil,
+    #     "ExternalCustomerNumber"=>"",
+    #     "ExternalOrderNumber"=>"R44499454545",
+    #     "OrderNumber"=>"Test-ORD-19",
+    #     "ShipmentStatus"=>
+    #      [{"ShipmentNumber"=>nil,
+    #        "Status"=>nil,
+    #        "TrackingDetails"=>
+    #         {"CarrierURL"=>"",
+    #          "TrackingData"=>
+    #           [{"ItemName"=>"Energy Suspension 1.2101G",
+    #             "ItemNumber"=>"BDVQ-1.2101G",
+    #             "LineDateShipped"=>nil,
+    #             "LineStatus"=>nil,
+    #             "QtyShipped"=>"2.0000",
+    #             "TrackingNumber"=>"12312321312312312323"}],
+    #          "TrackingUrl"=>"https://www.fedex.com/fedextrack/index.html?tracknumbers=",
+    #          "TrackingUrlSeperator"=>""}}],
+    #     "Status"=>"Closed",
+    #     "TrackingDetails"=>{"CarrierURL"=>nil, "TrackingData"=>[], "TrackingUrl"=>nil, "TrackingUrlSeperator"=>nil}
+    #   }
+    #
     def build_shipments(orders = [])
+      shipments = []
       orders.map do |order|
-        order["ShipmentStatus"].map do |shipment|
-          {
-            id: shipment["ShipmentNumber"],
-            order_id: order["OrderNumber"],
+        order["ShipmentStatus"].each_with_index do |shipment, index|
+          shipments << {
+            id: shipment["ShipmentNumber"] || "#{order["OrderNumber"]}-#{index}",
+            order_id: order["ExternalOrderNumber"],
             status: shipment["Status"],
             shipped_at: order["DateShipped"],
-            items: []
+            items: build_items(shipment["TrackingDetails"]["TrackingData"]),
+            fifthgear_original: shipment
           }
         end
       end
+
+      shipments
     end
 
     def from_date
@@ -46,6 +76,16 @@ module FifthGearIntegration
 
     def to_date
       FifthGear::Helper.dotnet_date_contract Time.now.utc
+    end
+
+    def build_items(items)
+      (items || []).map do |item|
+        {
+          name: item["ItemName"],
+          product_id: item["ItemNumber"],
+          quantity: item["QtyShipped"]
+        }
+      end
     end
   end
 end

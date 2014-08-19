@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://FIFTHGEAR_USERNAME:FIFTHGEAR_PASSWORD@commerceservicestest.infifthgear.com/v2.0/CommerceServices.svc/Rest/OrderStatusBulkLookup
+    body:
+      encoding: UTF-8
+      string: '{"CompanyId":"FIFTHGEAR_COMPANYID","FromDate":"/Date(1330711108000+0000)/","ToDate":"/Date(1408557508000+0000)/","StartRange":1,"EndRange":100}'
+    headers:
+      Content-Type:
+      - text/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Length:
+      - '4517'
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 19 Aug 2014 17:58:28 GMT
+    body:
+      encoding: UTF-8
+      string: '{"OperationRequest":{"Arguments":null,"Errors":null,"HTTPHeaders":null,"RequestId":null,"RequestProcessingTime":149},"Response":{"Statuses":[{"DateShipped":null,"ExternalCustomerNumber":"","ExternalOrderNumber":"R44499454545","OrderNumber":"Test-ORD-19","ShipmentStatus":[{"ShipmentNumber":null,"Status":null,"TrackingDetails":{"CarrierURL":"","TrackingData":[{"ItemName":"Energy
+        Suspension 1.2101G","ItemNumber":"BDVQ-1.2101G","LineDateShipped":null,"LineStatus":null,"QtyShipped":"2.0000","TrackingNumber":"12312321312312312323"}],"TrackingUrl":"https:\/\/www.fedex.com\/fedextrack\/index.html?tracknumbers=","TrackingUrlSeperator":""}}],"Status":"Closed","TrackingDetails":{"CarrierURL":null,"TrackingData":[],"TrackingUrl":null,"TrackingUrlSeperator":null}},{"DateShipped":null,"ExternalCustomerNumber":"","ExternalOrderNumber":"R445638894398579879","OrderNumber":"Test-ORD-20","ShipmentStatus":[{"ShipmentNumber":null,"Status":null,"TrackingDetails":{"CarrierURL":"","TrackingData":[{"ItemName":"Energy
+        Suspension 1.2101G","ItemNumber":"BDVQ-1.2101G","LineDateShipped":null,"LineStatus":null,"QtyShipped":"2.0000","TrackingNumber":"123213123565665767"}],"TrackingUrl":"https:\/\/www.fedex.com\/fedextrack\/index.html?tracknumbers=","TrackingUrlSeperator":""}}],"Status":"Closed","TrackingDetails":{"CarrierURL":null,"TrackingData":[],"TrackingUrl":null,"TrackingUrlSeperator":null}},{"DateShipped":null,"ExternalCustomerNumber":"","ExternalOrderNumber":"R4359ERGRG435325","OrderNumber":"Test-ORD-21","ShipmentStatus":[{"ShipmentNumber":null,"Status":null,"TrackingDetails":{"CarrierURL":"","TrackingData":[{"ItemName":"Energy
+        Suspension 1.2101G","ItemNumber":"BDVQ-1.2101G","LineDateShipped":null,"LineStatus":null,"QtyShipped":"2.0000","TrackingNumber":"234324232342"}],"TrackingUrl":"https:\/\/www.fedex.com\/fedextrack\/index.html?tracknumbers=","TrackingUrlSeperator":""}}],"Status":"Closed","TrackingDetails":{"CarrierURL":null,"TrackingData":[],"TrackingUrl":null,"TrackingUrlSeperator":null}},{"DateShipped":null,"ExternalCustomerNumber":"","ExternalOrderNumber":"R2445345TTTTTT66666","OrderNumber":"Test-ORD-22","ShipmentStatus":[{"ShipmentNumber":null,"Status":null,"TrackingDetails":{"CarrierURL":"","TrackingData":[{"ItemName":"Energy
+        Suspension 1.2101G","ItemNumber":"BDVQ-1.2101G","LineDateShipped":null,"LineStatus":null,"QtyShipped":"2.0000","TrackingNumber":"234234236576757"}],"TrackingUrl":"https:\/\/www.fedex.com\/fedextrack\/index.html?tracknumbers=","TrackingUrlSeperator":""}}],"Status":"Closed","TrackingDetails":{"CarrierURL":null,"TrackingData":[],"TrackingUrl":null,"TrackingUrlSeperator":null}},{"DateShipped":null,"ExternalCustomerNumber":"","ExternalOrderNumber":"R79797878787878435","OrderNumber":"Test-ORD-24","ShipmentStatus":[{"ShipmentNumber":null,"Status":null,"TrackingDetails":{"CarrierURL":"","TrackingData":[{"ItemName":"Energy
+        Suspension 1.2101G","ItemNumber":"BDVQ-1.2101G","LineDateShipped":null,"LineStatus":null,"QtyShipped":"2.0000","TrackingNumber":"5434354353453535"}],"TrackingUrl":"https:\/\/www.fedex.com\/fedextrack\/index.html?tracknumbers=","TrackingUrlSeperator":""}}],"Status":"Closed","TrackingDetails":{"CarrierURL":null,"TrackingData":[],"TrackingUrl":null,"TrackingUrlSeperator":null}},{"DateShipped":null,"ExternalCustomerNumber":"","ExternalOrderNumber":"R435239o798984352","OrderNumber":"Test-ORD-25","ShipmentStatus":[{"ShipmentNumber":null,"Status":null,"TrackingDetails":{"CarrierURL":"","TrackingData":[{"ItemName":"Energy
+        Suspension 1.2101G","ItemNumber":"BDVQ-1.2101G","LineDateShipped":null,"LineStatus":null,"QtyShipped":"2.0000","TrackingNumber":"123123123123123"}],"TrackingUrl":"https:\/\/www.fedex.com\/fedextrack\/index.html?tracknumbers=","TrackingUrlSeperator":""}}],"Status":"Closed","TrackingDetails":{"CarrierURL":null,"TrackingData":[],"TrackingUrl":null,"TrackingUrlSeperator":null}},{"DateShipped":null,"ExternalCustomerNumber":"","ExternalOrderNumber":"R2454325989870767","OrderNumber":"Test-ORD-26","ShipmentStatus":[{"ShipmentNumber":null,"Status":null,"TrackingDetails":{"CarrierURL":"","TrackingData":[{"ItemName":"Energy
+        Suspension 1.2101G","ItemNumber":"BDVQ-1.2101G","LineDateShipped":null,"LineStatus":null,"QtyShipped":"2.0000","TrackingNumber":"123123123123123"}],"TrackingUrl":"https:\/\/www.fedex.com\/fedextrack\/index.html?tracknumbers=","TrackingUrlSeperator":""}}],"Status":"Closed","TrackingDetails":{"CarrierURL":null,"TrackingData":[],"TrackingUrl":null,"TrackingUrlSeperator":null}}],"TotalOrderResults":7}}'
+    http_version: 
+  recorded_at: Tue, 19 Aug 2014 17:58:29 GMT
+recorded_with: VCR 2.9.2

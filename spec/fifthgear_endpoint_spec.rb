@@ -15,7 +15,7 @@ describe FifthGearEndpoint do
   end
 
   it "places an order" do
-    order[:id] = "R79797878787878435"
+    order[:id] = "R435245787896RGDGFS"
     payload = { order: order, parameters: config }
 
     VCR.use_cassette("orders/#{order[:id]}") do
@@ -46,12 +46,26 @@ describe FifthGearEndpoint do
     end
   end
 
-  it "fetches order updates" do
-    payload = { parameters: config }
+  it "fetches order updates 0 results" do
+    payload = {
+      parameters: config.merge(fifthgear_orders_range: 900)
+    }
 
     VCR.use_cassette("orders/bulk_lookup") do
       post "/get_shipments", payload.to_json, auth
       expect(last_response.status).to eq 200
+    end
+  end
+
+  it "fetches order updates with results" do
+    payload = {
+      parameters: config.merge(fifthgear_orders_range: 900)
+    }
+
+    VCR.use_cassette("orders/bulk_results") do
+      post "/get_shipments", payload.to_json, auth
+      expect(last_response.status).to eq 200
+      expect(json_response[:shipments].count).to be >= 1
     end
   end
 end
