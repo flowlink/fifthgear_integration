@@ -5,7 +5,7 @@ http_interactions:
     uri: https://FIFTHGEAR_USERNAME:FIFTHGEAR_PASSWORD@commerceservicestest.infifthgear.com/v2.0/CommerceServices.svc/Rest/OrderStatusBulkLookup
     body:
       encoding: UTF-8
-      string: '{"CompanyId":"FIFTHGEAR_COMPANYID","Request":null,"FromDate":"/Date(1405727150000+0000)/","ToDate":"/Date(1408319150000+0000)/"}'
+      string: '{"CompanyId":"FIFTHGEAR_COMPANYID","FromDate":"/Date(1408633136000+0000)/","ToDate":"/Date(1408645105000+0000)/","StartRange":1,"EndRange":100}'
     headers:
       Content-Type:
       - text/json
@@ -27,10 +27,10 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Sun, 17 Aug 2014 23:45:52 GMT
+      - Thu, 21 Aug 2014 18:18:25 GMT
     body:
       encoding: UTF-8
-      string: '{"OperationRequest":{"Arguments":null,"Errors":null,"HTTPHeaders":null,"RequestId":null,"RequestProcessingTime":373},"Response":{"Statuses":[],"TotalOrderResults":0}}'
+      string: '{"OperationRequest":{"Arguments":null,"Errors":null,"HTTPHeaders":null,"RequestId":null,"RequestProcessingTime":130},"Response":{"Statuses":[],"TotalOrderResults":0}}'
     http_version: 
-  recorded_at: Sun, 17 Aug 2014 23:45:53 GMT
+  recorded_at: Thu, 21 Aug 2014 18:18:27 GMT
 recorded_with: VCR 2.9.2

@@ -65,13 +65,7 @@ module FifthGearIntegration
     end
 
     def from_date
-      number = if config[:fifthgear_orders_range].present?
-                 config[:fifthgear_orders_range].to_i
-               else
-                 30
-               end
-
-      FifthGear::Helper.dotnet_date_contract number.days.ago.utc
+      FifthGear::Helper.dotnet_date_contract config[:fifthgear_orders_since]
     end
 
     def to_date
