@@ -17,10 +17,14 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
   end
 
   post "/get_inventory" do
-    inventories = FifthGearIntegration::Inventory.new(@config, @payload).get!
+    inventory = FifthGearIntegration::Inventory.new(@config, @payload)
+    inventories = inventory.get!
 
-    inventories.each do |i|
-      add_object "inventory", i.merge(id: i[:sku])
+    inventories.each { |i| add_object "inventory", i.merge(id: i[:sku]) }
+
+    unless @payload[:inventory] && @payload[:inventory][:sku]
+      add_parameter "fifthgear_startrange", inventory.next_start
+      add_parameter "fifthgear_endrange", inventory.next_end
     end
 
     line = if (count = inventories.count) > 0

@@ -31,8 +31,12 @@ describe FifthGearEndpoint do
 
     VCR.use_cassette("inventory/bulk_lookup") do
       post "/get_inventory", payload.to_json, auth
+
       expect(last_response.status).to eq 200
       expect(json_response[:inventories].count).to be >= 1
+
+      expect(json_response[:parameters]).to have_key "fifthgear_startrange"
+      expect(json_response[:parameters]).to have_key "fifthgear_endrange"
     end
   end
 
@@ -43,6 +47,7 @@ describe FifthGearEndpoint do
       post "/get_inventory", payload.to_json, auth
       expect(last_response.status).to eq 200
       expect(json_response[:inventories].count).to eq 1
+      expect(json_response[:parameters]).to eq nil
     end
   end
 
