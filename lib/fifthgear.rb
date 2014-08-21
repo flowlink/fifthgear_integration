@@ -45,13 +45,17 @@ class FifthGear
     def item_inventory_bulk_lookup(options = {})
       response = service "ItemInventoryBulkLookup", options
 
-      if response.code == 200 && array = response["Response"]["ItemInventories"]
-        array.map do |item|
-          {
-            sku: item["ItemNumber"],
-            quantity: item["AvailableToPurchaseQuantity"],
-            backorder_allocation_quantity: item["BackorderAllocationQuantity"]
-          }
+      if response.code == 200
+        if response["Response"] && array = response["Response"]["ItemInventories"]
+          array.map do |item|
+            {
+              sku: item["ItemNumber"],
+              quantity: item["AvailableToPurchaseQuantity"],
+              backorder_allocation_quantity: item["BackorderAllocationQuantity"]
+            }
+          end
+        else
+          []
         end
       end
     end
