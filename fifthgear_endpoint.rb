@@ -28,7 +28,7 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
     end
 
     if (count = inventories.count) > 0
-      result 200, "Updating #{count} #{"inventory".pluralize count} record from Fifth Gear"
+      result 200, "Received #{count} #{"inventory".pluralize count} from Fifth Gear"
     else
       result 200
     end
@@ -41,7 +41,7 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
     add_parameter "fifthgear_orders_since", Time.now.utc.iso8601
 
     if (count = shipments.count) > 0
-      result 200, "Updating #{count} #{"shipment".pluralize count} record from Fifth Gear"
+      result 200, "Received #{count} #{"shipment".pluralize count} from Fifth Gear"
     else
       result 200
     end
