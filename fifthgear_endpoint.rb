@@ -27,27 +27,23 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
       add_parameter "fifthgear_endrange", inventory.next_end
     end
 
-    line = if (count = inventories.count) > 0
-             "Updating #{count} #{"inventory".pluralize count} record from Fifth Gear"
-           else
-             "No inventory found in Fifth Gear"
-           end
-
-    result 200, line
+    if (count = inventories.count) > 0
+      result 200, "Updating #{count} #{"inventory".pluralize count} record from Fifth Gear"
+    else
+      result 200
+    end
   end
 
   post "/get_shipments" do
     shipments = FifthGearIntegration::Shipment.new(@config).get!
     shipments.each { |s| add_object "shipment", s }
 
-    line = if (count = shipments.count) > 0
-             "Updating #{count} #{"shipment".pluralize count} record from Fifth Gear"
-           else
-             "No shipment update found in Fifth Gear"
-           end
-    
     add_parameter "fifthgear_orders_since", Time.now.utc.iso8601
 
-    result 200, line
+    if (count = shipments.count) > 0
+      result 200, "Updating #{count} #{"shipment".pluralize count} record from Fifth Gear"
+    else
+      result 200
+    end
   end
 end
