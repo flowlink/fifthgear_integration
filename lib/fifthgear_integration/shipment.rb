@@ -15,7 +15,7 @@ module FifthGearIntegration
           "EndRange" => config[:fifthgear_endrange].to_i
         })
       else
-        options.merge!({ "StartRange" => 1, "EndRange" => 100 })
+        options.merge!({ "StartRange" => 1, "EndRange" => 1000 })
       end
 
       build_shipments FifthGear.order_status_bulk_lookup(options)
@@ -48,7 +48,7 @@ module FifthGearIntegration
     #
     def build_shipments(orders = [])
       shipments = []
-      orders.map do |order|
+      (orders || []).map do |order|
         order["ShipmentStatus"].each_with_index do |shipment, index|
           shipments << {
             id: shipment["ShipmentNumber"] || "#{order["OrderNumber"]}-#{index}",

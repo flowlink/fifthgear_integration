@@ -63,8 +63,7 @@ describe FifthGearEndpoint do
     end
   end
 
-  # api no longer returns any result, contact their team
-  pending "fetches order updates with results" do
+  it "fetches order updates with results" do
     payload = {
       parameters: config.merge(fifthgear_orders_since: "2014-01-21T14:58:56-00:00")
     }
