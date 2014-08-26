@@ -89,7 +89,7 @@ module FifthGearIntegration
         {
           "ShipTo" => 1,
           "Amount" => item[:price],
-          "ItemNumber" => item[:product_id],
+          "ItemNumber" => item[:product_id] || item[:sku],
           "Quantity" => item[:quantity],
           "Discounts" => [],
           "ParentLineNumber" => 0,
