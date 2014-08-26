@@ -54,7 +54,9 @@ module FifthGearIntegration
             id: shipment["ShipmentNumber"] || "#{order["OrderNumber"]}-#{index}",
             order_id: order["ExternalOrderNumber"],
             status: shipment["Status"],
-            shipped_at: order["DateShipped"],
+            tracking: tracking(shipment["TrackingDetails"]["TrackingData"]),
+            shipped_at: order["DateShipped"] || Time.now.utc.iso8601,
+            updated_at: order["DateShipped"] || Time.now.utc.iso8601,
             items: build_items(shipment["TrackingDetails"]["TrackingData"]),
             fifthgear_original: shipment
           }
@@ -79,6 +81,14 @@ module FifthGearIntegration
           product_id: item["ItemNumber"],
           quantity: item["QtyShipped"]
         }
+      end
+    end
+
+    def tracking(items)
+      item = (items || []).first
+
+      if item.is_a? Hash
+        item["TrackingNumber"]
       end
     end
   end
