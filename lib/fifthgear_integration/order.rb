@@ -82,10 +82,9 @@ module FifthGearIntegration
       }
     end
 
-    # NOTE what is LineNumber?
     # NOTE Shipto > the first index of the shiptos array
     def items
-      order_payload[:line_items].map do |item|
+      order_payload[:line_items].each_with_index.map do |item, index|
         {
           "ShipTo" => 1,
           "Amount" => item[:price],
@@ -94,7 +93,7 @@ module FifthGearIntegration
           "Discounts" => [],
           "ParentLineNumber" => 0,
           "GroupName" => nil,
-          "LineNumber" => 1,
+          "LineNumber" => index + 1,
           "Comments" => nil
         }
       end
