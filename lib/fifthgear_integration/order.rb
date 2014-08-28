@@ -145,7 +145,9 @@ module FifthGearIntegration
     end
 
     def state_code(state)
-      if match = @@state_codes.values.find { |h| h["name"] == state }
+      if match = @@state_codes[state]
+        match["code"]
+      elsif match = @@state_codes.values.find { |h| h["name"] == state }
         match["code"]
       else
         0 # Unknown

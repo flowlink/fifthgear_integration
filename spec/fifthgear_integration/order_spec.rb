@@ -15,6 +15,10 @@ module FifthGearIntegration
       expect(subject.state_code "NONONONONO").to eq 0
     end
 
+    it "maps 2 digit state code as well" do
+      expect(subject.state_code "QC").to eq 72
+    end
+
     it "ship code defaults to FDXOS (Next Day)" do
       expect(subject.ship_code nil).to eq "FDXOS"
       expect(subject.ship_code "FDXOS").to eq "FDXOS"
