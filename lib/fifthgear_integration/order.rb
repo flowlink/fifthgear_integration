@@ -4,7 +4,6 @@ module FifthGearIntegration
     
     @@country_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/country_codes.json"))
     @@state_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/state_codes.json"))
-    @@ship_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/ship_codes.json"))
 
     def initialize(config, payload = {})
       super config, payload
@@ -103,7 +102,7 @@ module FifthGearIntegration
       [
         {
           "CarrierAccountNumber" => order_payload[:carrier_account_number] || "",
-          "ExternalShipCode" => ship_code(order_payload[:external_ship_code]),
+          "ExternalShipCode" => order_payload[:external_ship_code],
           "Recipient" => {
             "FirstName" => shipping_address_payload[:firstname],
             "LastName" => shipping_address_payload[:lastname],
@@ -151,14 +150,6 @@ module FifthGearIntegration
         match["code"]
       else
         0 # Unknown
-      end
-    end
-
-    def ship_code(shipping_method)
-      if shipping_method.present? && !@@ship_codes.values.include?(shipping_method)
-        raise InvalidShipCodeError, "Invalid Shipping Code provided. Please provide a valid ship code"
-      else
-        shipping_method || "FDXOS" # Next Day
       end
     end
   end
