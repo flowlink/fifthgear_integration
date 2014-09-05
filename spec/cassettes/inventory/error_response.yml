@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://FIFTHGEAR_USERNAME:FIFTHGEAR_PASSWORD@commerceservices.infifthgear.com/v2.0/CommerceServices.svc/Rest/ItemInventoryBulkLookup
+    body:
+      encoding: UTF-8
+      string: '{"CompanyId":"FIFTHGEAR_COMPANYID","startRange":1,"endRange":200}'
+    headers:
+      Content-Type:
+      - text/json
+  response:
+    status:
+      code: 500
+      message: The type initializer for 'Fenix.CommerceServices.CommerceServiceFaultMessages'
+        threw an exception.
+    headers:
+      Cache-Control:
+      - private
+      Content-Length:
+      - '111'
+      Content-Type:
+      - application/json
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 05 Sep 2014 20:26:02 GMT
+    body:
+      encoding: UTF-8
+      string: '{"Detail":"The type initializer for ''Fenix.CommerceServices.CommerceServiceFaultMessages''
+        threw an exception."}'
+    http_version: 
+  recorded_at: Fri, 05 Sep 2014 20:26:04 GMT
+recorded_with: VCR 2.9.2

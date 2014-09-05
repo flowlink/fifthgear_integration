@@ -11,6 +11,10 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
     config.environment_name = ENV['RACK_ENV']
   end if ENV['HONEYBADGER_KEY'].present?
 
+  error FifthGear::ServerError do
+    result 500, env['sinatra.error'].message
+  end
+
   post "/add_order" do
     order = FifthGearIntegration::Order.new(@config, @payload).post!
     result 200, "Order successfully placed in Fifth Gear. Receipt #{order[:receipt]}"

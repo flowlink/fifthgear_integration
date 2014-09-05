@@ -40,6 +40,22 @@ describe FifthGearEndpoint do
     end
   end
 
+  it "rescues a fifth gear server error" do
+    payload = {
+      parameters: config.merge(
+        fifthgear_production: "1",
+        fifthgear_startrange: 1,
+        fifthgear_endrange: 200
+      )
+    }
+
+    VCR.use_cassette("inventory/error_response") do
+      post "/get_inventory", payload.to_json, auth
+      expect(last_response.status).to eq 500
+      expect(json_response[:summary]).to match "threw an exception"
+    end
+  end
+
   it "fetches single inventory record" do
     payload = { inventory: { sku: "BDVQ-1.2101G" }, parameters: config }
 

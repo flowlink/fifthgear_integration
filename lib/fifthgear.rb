@@ -1,6 +1,8 @@
 class FifthGear
   include HTTParty
 
+  class ServerError < StandardError; end
+
   class << self
     def company_id(id)
       @@company_id = id
@@ -138,11 +140,17 @@ class FifthGear
     end
 
     def service(name, options = {})
-      post(
+      response = post(
         "/#{name}",
         headers: { 'Content-Type' => 'text/json' },
         body: { 'CompanyId' => @@company_id }.merge(options).to_json
       )
+
+      unless response.code == 200
+        raise ServerError, "Returned: #{response.code}. #{response}"
+      end
+
+      response
     end
   end
 
