@@ -1,6 +1,7 @@
 module FifthGearIntegration
   class Order < Base
-    attr_reader :order_payload, :billing_address_payload, :shipping_address_payload
+    attr_reader :object_payload, :billing_address_payload,
+      :shipping_address_payload, :items_payload
     
     @@country_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/country_codes.json"))
     @@state_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/state_codes.json"))
@@ -8,9 +9,10 @@ module FifthGearIntegration
     def initialize(config, payload = {})
       super config, payload
 
-      @order_payload = payload[:order] || {}
-      @billing_address_payload = order_payload[:billing_address] || {}
-      @shipping_address_payload = order_payload[:shipping_address] || {}
+      @object_payload = payload[:order] || payload[:shipment] || {}
+      @items_payload = object_payload[:line_items] || object_payload[:items]
+      @billing_address_payload = object_payload[:billing_address] || {}
+      @shipping_address_payload = object_payload[:shipping_address] || {}
     end
 
     def post!
@@ -32,20 +34,20 @@ module FifthGearIntegration
           "BillingAddress" => billing_address,
           "Charges" => [
             {
-              "Amount" => order_payload[:totals][:shipping] || 0,
+              "Amount" => object_payload[:totals][:shipping] || 0,
               "ChargeCode" => "Shipping Charges"
             }
           ],
           "CountryCode" => country_code(billing_address_payload[:country]),
-          "CurrencyCode" => order_payload[:country_code] || 154,
+          "CurrencyCode" => object_payload[:country_code] || 154,
           "Customer" => customer,
           "Discounts" => [],
           "Items" => items,
           "OrderType" => "internet",
-          "OrderDate" => FifthGear::Helper.dotnet_date_contract(order_payload[:placed_on]),
+          "OrderDate" => FifthGear::Helper.dotnet_date_contract(object_payload[:placed_on]),
           "OrderMessage" => "",
-          "OrderReferenceNumber" => order_payload[:id],
-          "IsWholesaleDirect" => order_payload[:is_whole_sale_direct] || false,
+          "OrderReferenceNumber" => object_payload[:id],
+          "IsWholesaleDirect" => object_payload[:is_whole_sale_direct] || false,
           "Payment" => payment,
           "ShipTos" => shipping_info,
           "Source" => "",
@@ -77,13 +79,13 @@ module FifthGearIntegration
         "LastName" => billing_address_payload[:lastname],
         "MiddleName" => "",
         "RefCustomerNumber" => "",
-        "Email" => order_payload[:email]
+        "Email" => object_payload[:email]
       }
     end
 
     # NOTE Shipto > the first index of the shiptos array
     def items
-      order_payload[:line_items].each_with_index.map do |item, index|
+      items_payload.each_with_index.map do |item, index|
         {
           "ShipTo" => 1,
           "Amount" => item[:price],
@@ -101,8 +103,8 @@ module FifthGearIntegration
     def shipping_info
       [
         {
-          "CarrierAccountNumber" => order_payload[:carrier_account_number] || "",
-          "ExternalShipCode" => order_payload[:external_ship_code],
+          "CarrierAccountNumber" => object_payload[:carrier_account_number] || "",
+          "ExternalShipCode" => object_payload[:external_ship_code],
           "Recipient" => {
             "FirstName" => shipping_address_payload[:firstname],
             "LastName" => shipping_address_payload[:lastname],
@@ -130,7 +132,7 @@ module FifthGearIntegration
     # Assume payments are processed on storefront or somewhere else
     # therefore not cash / credit card payments here
     def payment
-      amount = order_payload[:payments].map { |p| p[:amount] }.reduce(:+) || 0
+      amount = object_payload[:payments].map { |p| p[:amount] }.reduce(:+) || 0
       { "WireTransferPayment" => { 'Amount' => amount } }
     end
 
