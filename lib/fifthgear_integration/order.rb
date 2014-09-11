@@ -44,7 +44,7 @@ module FifthGearIntegration
           "Discounts" => [],
           "Items" => items,
           "OrderType" => "internet",
-          "OrderDate" => FifthGear::Helper.dotnet_date_contract(object_payload[:placed_on]),
+          "OrderDate" => FifthGear::Helper.dotnet_date_contract(object_payload[:placed_on] || Time.now.utc.iso8601),
           "OrderMessage" => "",
           "OrderReferenceNumber" => object_payload[:id],
           "IsWholesaleDirect" => object_payload[:is_whole_sale_direct] || false,

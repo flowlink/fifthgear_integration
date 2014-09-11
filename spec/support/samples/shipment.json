@@ -1,0 +1,43 @@
+{
+  "id": "R154085346106287",
+  "status": "unshipped",
+  "email": "spree@example.com",
+  "totals": {
+    "item": 200,
+    "adjustment": 20,
+    "tax": 10,
+    "shipping": 10,
+    "payment": 220,
+    "order": 220
+  },
+  "items": [
+    {
+      "product_id": "BDVQ-1.2101G",
+      "name": "Spree T-Shirt",
+      "quantity": 2,
+      "price": 100
+    }
+  ],
+  "shipping_address": {
+    "firstname": "Joe",
+    "lastname": "Smith",
+    "address1": "1234 Awesome Street",
+    "address2": "",
+    "zipcode": "90210",
+    "city": "Hollywood",
+    "state": "California",
+    "country": "US",
+    "phone": "0000000000"
+  },
+  "billing_address": {
+    "firstname": "Joe",
+    "lastname": "Smith",
+    "address1": "1234 Awesome Street",
+    "address2": "",
+    "zipcode": "90210",
+    "city": "Hollywood",
+    "state": "California",
+    "country": "US",
+    "phone": "0000000000"
+  }
+}

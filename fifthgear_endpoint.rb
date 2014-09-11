@@ -15,9 +15,11 @@ class FifthGearEndpoint < EndpointBase::Sinatra::Base
     result 500, env['sinatra.error'].message
   end
 
-  post "/add_order" do
-    order = FifthGearIntegration::Order.new(@config, @payload).post!
-    result 200, "Order successfully placed in Fifth Gear. Receipt #{order[:receipt]}"
+  ["/add_order", "/add_shipment"].each do |path|
+    post path do
+      order = FifthGearIntegration::Order.new(@config, @payload).post!
+      result 200, "Order successfully placed in Fifth Gear. Receipt #{order[:receipt]}"
+    end
   end
 
   post "/get_inventory" do

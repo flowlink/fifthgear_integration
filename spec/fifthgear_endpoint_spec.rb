@@ -14,12 +14,26 @@ describe FifthGearEndpoint do
     JSON.parse(IO.read("#{File.dirname(__FILE__)}/support/samples/order.json")).with_indifferent_access
   end
 
+  let(:shipment) do
+    JSON.parse(IO.read("#{File.dirname(__FILE__)}/support/samples/shipment.json")).with_indifferent_access
+  end
+
   it "places an order" do
     order[:id] = "R435245787896RGDGFS"
     payload = { order: order, parameters: config }
 
     VCR.use_cassette("orders/#{order[:id]}") do
       post "/add_order", payload.to_json, auth
+      expect(last_response.status).to eq 200
+    end
+  end
+
+  it "places an order via shipment" do
+    shipment[:id] = "R435245787896RGDGFS"
+    payload = { shipment: shipment, parameters: config }
+
+    VCR.use_cassette("orders/#{shipment[:id]}") do
+      post "/add_shipment", payload.to_json, auth
       expect(last_response.status).to eq 200
     end
   end
