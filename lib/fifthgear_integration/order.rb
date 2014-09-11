@@ -132,7 +132,7 @@ module FifthGearIntegration
     # Assume payments are processed on storefront or somewhere else
     # therefore not cash / credit card payments here
     def payment
-      amount = object_payload[:payments].map { |p| p[:amount] }.reduce(:+) || 0
+      amount = object_payload[:totals][:payment]
       { "WireTransferPayment" => { 'Amount' => amount } }
     end
 
