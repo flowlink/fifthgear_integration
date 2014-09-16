@@ -51,7 +51,7 @@ module FifthGearIntegration
       (orders || []).map do |order|
         order["ShipmentStatus"].each_with_index do |shipment, index|
           shipments << {
-            id: shipment["ExternalOrderNumber"] || shipment["ShipmentNumber"] || "#{order["OrderNumber"]}-#{index}",
+            id: order["ExternalOrderNumber"] || shipment["ShipmentNumber"] || "#{order["OrderNumber"]}-#{index}",
             order_id: order["ExternalOrderNumber"],
             status: shipment["Status"],
             tracking: tracking(shipment["TrackingDetails"]["TrackingData"]),
