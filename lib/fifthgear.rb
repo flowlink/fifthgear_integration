@@ -19,6 +19,7 @@ class FifthGear
 
       if response.code == 200 && hash = response["Response"]
         {
+          product_id: hash["ItemNumber"],
           sku: hash["ItemNumber"],
           quantity: hash["AvailableToPurchaseQuantity"],
           backorder_available_date: hash["BackOrderAvailableDate"]
@@ -51,6 +52,7 @@ class FifthGear
         if response["Response"] && array = response["Response"]["ItemInventories"]
           array.map do |item|
             {
+              product_id: item["ItemNumber"],
               sku: item["ItemNumber"],
               quantity: item["AvailableToPurchaseQuantity"],
               backorder_allocation_quantity: item["BackorderAllocationQuantity"]
