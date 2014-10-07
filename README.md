@@ -10,6 +10,8 @@ product. With this integration you can perform the following functions:
 * Get Inventory stock / status from Fifth Gear
 * Get Orders / Shipment updates from Fifth Gear
 
+See the [Fifth Gear API Docs](http://docs.infifthgear.com/api/) for further info on how the integration can be improved.
+
 [Wombat](http://wombat.co) allows you to connect to your own custom integrations.
 Feel free to modify the source code and host your own version of the integration
 or better yet, help to make the official integration better by submitting a pull request!
