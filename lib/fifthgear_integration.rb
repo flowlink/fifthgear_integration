@@ -10,7 +10,8 @@ module FifthGearIntegration
       @config = config
 
       if config[:fifthgear_production].to_s == "true" || config[:fifthgear_production].to_s == "1"
-        FifthGear.base_uri "https://commerceservices.infifthgear.com/v2.0/CommerceServices.svc/Rest"
+        #FifthGear.base_uri "https://commerceservices.infifthgear.com/v2.0/CommerceServices.svc/Rest"
+        FifthGear.base_uri "https://commerceservices-infifthgear-com-fcsyan1kvj39.runscope.net/v2.0/CommerceServices.svc/Rest"
       else
         FifthGear.base_uri "https://commerceservicestest.infifthgear.com/v2.0/CommerceServices.svc/Rest"
       end
