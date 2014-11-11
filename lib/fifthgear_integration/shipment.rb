@@ -52,7 +52,6 @@ module FifthGearIntegration
         order["ShipmentStatus"].each_with_index do |shipment, index|
           shipments << {
             id: order["ExternalOrderNumber"] || shipment["ShipmentNumber"] || "#{order["OrderNumber"]}-#{index}",
-            order_id: order["ExternalOrderNumber"],
             status: shipment["Status"],
             tracking: tracking(shipment["TrackingDetails"]["TrackingData"]),
             shipped_at: order["DateShipped"] || Time.now.utc.iso8601,
