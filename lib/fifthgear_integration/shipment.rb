@@ -15,7 +15,7 @@ module FifthGearIntegration
           "EndRange" => config[:fifthgear_endrange].to_i
         })
       else
-        options.merge!({ "StartRange" => 1, "EndRange" => 1000 })
+        options.merge!({ "StartRange" => 1, "EndRange" => 100 })
       end
 
       build_shipments FifthGear.order_status_bulk_lookup(options)
