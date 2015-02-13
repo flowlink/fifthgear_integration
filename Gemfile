@@ -11,7 +11,8 @@ gem 'capistrano'
 gem 'honeybadger'
 
 group :development, :test do
-  gem "pry"
+  gem 'pry'
+  gem 'shotgun'
 end
 
 group :test do

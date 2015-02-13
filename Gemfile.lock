@@ -74,6 +74,8 @@ GEM
       rspec-support (~> 3.0.0)
     rspec-support (3.0.3)
     safe_yaml (1.0.3)
+    shotgun (0.9)
+      rack (>= 1.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -112,6 +114,7 @@ DEPENDENCIES
   pry
   rack-test
   rspec
+  shotgun
   sinatra
   tilt (~> 1.4.1)
   tilt-jbuilder
