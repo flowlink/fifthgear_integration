@@ -13,6 +13,7 @@ gem 'honeybadger'
 group :development, :test do
   gem 'pry'
   gem 'shotgun'
+  gem 'pry-byebug'
 end
 
 group :test do

@@ -17,14 +17,20 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
     coderay (1.1.0)
     colorize (0.7.3)
+    columnize (0.9.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
@@ -54,6 +60,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.0.1)
+      byebug (~> 3.4)
+      pry (~> 0.10)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -112,6 +121,7 @@ DEPENDENCIES
   honeybadger
   httparty
   pry
+  pry-byebug
   rack-test
   rspec
   shotgun

@@ -2,7 +2,7 @@ module FifthGearIntegration
   class Order < Base
     attr_reader :object_payload, :billing_address_payload,
       :shipping_address_payload, :items_payload
-    
+
     @@country_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/country_codes.json"))
     @@state_codes = JSON.parse IO.read(File.join(__dir__, "../fifthgear/state_codes.json"))
 
@@ -24,7 +24,7 @@ module FifthGearIntegration
           status: response["Response"]["OrderStatus"]
         }
       else
-        raise response["Errors"].inspect
+        raise (response["Errors"] || response["OperationRequest"]["Errors"]).inspect
       end
     end
 
