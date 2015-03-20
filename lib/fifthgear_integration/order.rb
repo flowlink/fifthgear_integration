@@ -45,7 +45,7 @@ module FifthGearIntegration
           "Items" => items,
           "OrderType" => "internet",
           "OrderDate" => order_date,
-          "OrderMessage" => "",
+          "OrderMessage" => order_message,
           "OrderReferenceNumber" => object_payload[:id],
           "IsWholesaleDirect" => object_payload[:is_whole_sale_direct] || false,
           "Payment" => payment,
