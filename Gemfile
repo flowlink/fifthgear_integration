@@ -6,7 +6,7 @@ gem 'tilt-jbuilder', require: 'sinatra/jbuilder'
 
 gem 'httparty'
 
-gem 'endpoint_base', github: 'spree/endpoint_base'
+gem 'endpoint_base', github: 'flowlink/endpoint_base'
 gem 'capistrano'
 gem 'honeybadger'
 
