@@ -1,6 +1,6 @@
 # Fifth Gear Integration
 
-This integration is designed to integrate Wombat with
+This integration is designed to integrate FlowLink with
 [Fifth Gear](http://www.infifthgear.com/) API.
 
 This is a fully hosted and supported integration for use with the [FlowLink](http://flowlink.io/)
